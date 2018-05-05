@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Created by Zuoqi Zhang on 2018/3/29.
+# Created by Zuoqi Zhang on 2018/4/1.
 
 import requests
+import numpy as np
 import pandas as pd
 
 df = pd.read_csv('/Users/saki/Downloads/data.csv')
@@ -13,8 +14,7 @@ data_us.to_csv('data_us.csv')
 
 # print(data_us)
 
-# expires in 3600 secs
-access_token = 'Bearer BQCGy9k7q50npWtt8uIWXu2FcEcVPOQJVbO0hZMeaOVN-xyWZuSobsCghzKQQzlYutb0aqSCH2x_mqr3B-s'
+access_token = 'Bearer BQC1LFGqoWbF2EXfILUkxjsdDVU4yo4yCowUrMqtLm0uMWb4e1I_evZsELADNJSd6UvdJtqvsqQBiu8Ad5s'
 url = 'https://api.spotify.com/v1/audio-features/'
 
 track_ids = data_us['ID'].unique()
@@ -23,12 +23,35 @@ tracks = []
 for _id in track_ids:
     response = requests.get(url + _id, headers={'Authorization': access_token})
     if response.status_code != 200:
+        # print(response.text)
         break
     track = response.json()
     tracks.append(track)
+    # print(len(tracks))
 
 tracks_df = pd.DataFrame(tracks).drop(['type', 'uri', 'track_href', 'analysis_url'], axis=1)
-tracks_df.to_csv('tracks_df.csv')
 
-features_df = pd.merge(data_us, tracks_df, how='left', left_on='ID', right_on='id')
+label_df = data_us[['ID', 'Streams']]
+label_df = label_df.groupby('ID').sum().reset_index()
+label_df['label'] = np.where(label_df['Streams'] >= label_df['Streams'].mean(), 1, 0)
+
+features = ['acousticness',
+            'danceability',
+            'duration_ms',
+            'energy',
+            'instrumentalness',
+            'key',
+            'liveness',
+            'loudness',
+            'mode',
+            'speechiness',
+            'tempo',
+            'time_signature',
+            'valence']
+
+data = pd.merge(tracks_df, label_df, left_on='id', right_on='ID')
+data = data[features + ['label']]
+data.to_csv('dataset.csv')
+
+features_df = pd.merge(data_us, tracks_df, left_on='ID', right_on='id')
 features_df.to_csv('features_df.csv')
