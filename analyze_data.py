@@ -118,7 +118,7 @@ def get_trends(top_features):
 
 
 df = pd.read_csv('data_us.csv')
-featuresdf = pd.read_csv('dataset.csv')
+featuresdf = pd.read_csv('datasetwithstreams.csv')
 
 top_artists = get_top_artists(df)
 print(top_artists)
