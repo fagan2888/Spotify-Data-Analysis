@@ -32,7 +32,7 @@ def get_top_features(featuresdf):
 
     return top_features
 
-# gets the correlation graph
+# gets the correlation matrix graph
 def get_correlation(top_features):
     features = top_features[top_features.columns[-14:]]
     features = features.drop('Streams', axis=1)
@@ -44,6 +44,7 @@ def get_correlation(top_features):
     plt.tight_layout()
     fig = plt.gcf()
     fig.canvas.set_window_title('Correlations')
+    plt.savefig('images/Correlations.png')  # save graph
     plt.show()
 
 # gets the trend graph for each feature
@@ -85,6 +86,7 @@ def get_trends(top_features):
     plt.tight_layout()
     fig = plt.gcf()
     fig.canvas.set_window_title('Trends')
+    plt.savefig('images/Trends.png')        # save graphs
     plt.show()
 
     trends = pd.DataFrame({'x': range(1, n + 1),
@@ -111,6 +113,7 @@ def get_trends(top_features):
     plt.tight_layout()
     fig = plt.gcf()
     fig.canvas.set_window_title('Trends')
+    plt.savefig('images/Trends2.png')       # save graphs
     plt.show()
 
 
