@@ -17,3 +17,4 @@ File List:
 
 process_data.py is included, but it would be best not to run it since it requires an automically generated Spotify API access token, which we cannot give since it expires every hour and needs to be re-obtained.
 
+find_best.py may take a few minutes to run depending on your computer's processing speed.
