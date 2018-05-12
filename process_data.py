@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Created by Zuoqi Zhang on 2018/4/1.
-
 import requests
 import numpy as np
 import pandas as pd
