@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Created by Zuoqi Zhang on 2018/4/1.
-
 import io
 import pandas as pd
 from pydotplus import graph_from_dot_data
