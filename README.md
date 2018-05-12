@@ -6,7 +6,7 @@ Zuoqi Zhang, Charles Huang
 
 File List:
 
-* data_us.csv - dataset downloaded from Kaggle.
+* data_us.csv - dataset downloaded from [Kaggle](https://www.kaggle.com/edumucelli/spotifys-worldwide-daily-song-ranking/data).
 * features_df.csv - dataset we used for data analysis.
 * datasetwithstreams.csv - dataset with stream counts used for data analysis.
 * dataset.csv - dataset we used for model training.
